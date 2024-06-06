@@ -22,7 +22,6 @@ public class ImagenController {
             @RequestParam("image") MultipartFile file
             ){
         String uploadImage = service.uploadImage(file);
-        System.out.println(uploadImage);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(uploadImage);
     }

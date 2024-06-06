@@ -1,0 +1,13 @@
+https://www.baeldung.com/spring-rest-template-multipart-upload
+
+https://www.baeldung.com/spring-rest-template-multipart-upload#uploading-a-single-file
+
+HttpHeaders headers = new HttpHeaders();
+headers.setContentType(MediaType.MULTIPART_FORM_DATA);
+MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
+body.add("file", getTestFile());
+HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body, headers);
+String serverUrl = "http://localhost:8082/spring-rest/fileserver/singlefileupload/";
+
+RestTemplate restTemplate = new RestTemplate();
+ResponseEntity<String> response = restTemplate.postForEntity(serverUrl, requestEntity, String.class);
