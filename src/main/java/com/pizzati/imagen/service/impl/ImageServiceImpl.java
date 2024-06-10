@@ -26,12 +26,14 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
-    public String uploadImage(MultipartFile file) {
+    public String uploadImage(int id, MultipartFile file) {
 
-        String filePath = imageFolder+file.getOriginalFilename();
+        String[] split = file.getOriginalFilename().split("[.]");
+
+        String filePath = imageFolder+"patito_"+id+"."+split[1];
 
         FileImageData build = FileImageData.builder()
-                .name(file.getOriginalFilename())
+                .name("id_"+id+"."+split[1])
                 .type(file.getContentType())
                 .filePath(filePath)
                 .build();
@@ -55,13 +57,14 @@ public class ImageServiceImpl implements ImageService {
 
         FileImageData byName = imageRepository.findByName(filename);
         if(isNull(byName)){
+            System.out.println("No Esta");
             return new byte[0];
         }
 
         try {
             return Files.readAllBytes(new File(byName.getFilePath()).toPath());
         }catch (Exception e){
-            
+            System.out.println(e.getMessage());
         }
 
         return new byte[0];

@@ -19,9 +19,10 @@ public class ImagenController {
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<String> uploadImage(
-            @RequestParam("image") MultipartFile file
+            @RequestParam MultipartFile file
+            ,@RequestParam int id
             ){
-        String uploadImage = service.uploadImage(file);
+        String uploadImage = service.uploadImage(id,file);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(uploadImage);
     }
