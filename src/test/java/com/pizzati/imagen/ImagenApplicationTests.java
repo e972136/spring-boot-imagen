@@ -1,5 +1,6 @@
 package com.pizzati.imagen;
 
+import com.pizzati.imagen.entity.ClientesResponse;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.io.FileSystemResource;
@@ -14,6 +15,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Optional;
 
 @SpringBootTest
 class ImagenApplicationTests {
@@ -50,6 +52,21 @@ class ImagenApplicationTests {
 			String serverUrl = "http://localhost:9090/";
 			RestTemplate restTemplate = new RestTemplate();
 			ResponseEntity<String> response = restTemplate.postForEntity(serverUrl, requestEntity, String.class);
+			System.out.println(response.getBody());
+		}catch (Exception e){
+			System.out.println(e.getMessage());
+		}
+
+	}
+
+	@Test
+	void obtenerCliente(){
+		try{
+			String parametros = String.format("?id=%d",1L);
+			String serverUrl = "http://localhost:9095/clientes/bcliente"+parametros;
+			RestTemplate restTemplate = new RestTemplate();
+			ResponseEntity<ClientesResponse> response = restTemplate.getForEntity(serverUrl, ClientesResponse.class);
+			System.out.println(response.getStatusCode());
 			System.out.println(response.getBody());
 		}catch (Exception e){
 			System.out.println(e.getMessage());
